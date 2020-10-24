@@ -8,6 +8,76 @@ const initialRatio = window.devicePixelRatio;
 successBtn.addEventListener('click', () => showData(requestURL))
 dangerBtn.addEventListener('click', () => showData(badRequestURL))
 
+async function getData(url) {
+    let response = await fetch(url);
+    console.log(response);
+
+    if (response.ok) {
+        return response;
+    }
+
+    throw Error('Return with status ' + response.status);
+}
+
+async function showData(url) {
+    try {
+        let response = await getData(url);
+        let result = await response.json();
+        let listUsers = result.reduce((acc, el) => {
+            return acc + `ID: ${el.id}, Name: ${el.name}\n`;
+        }, '');
+
+        /* Add info about headers */
+        let responseHTML = responseHeadersHTML(response);
+        let requestHTML = requestHeadersHTML(response);
+        let html = `
+            <div class="row">
+                <div class="col-6">${requestHTML}</div>
+                <div class="col-6">${responseHTML}</div>
+            </div>`;
+
+        let container = document.querySelector('main .container');
+        container.insertAdjacentHTML('beforeend', html);
+
+        alert(listUsers);
+    }
+    catch(e) {
+        alert("Error: " + e.message)
+    }
+}
+
+function responseHeadersHTML(response) {
+
+    let panelBodyHTML = `<b>status:</b> ${response.status}<br>`;
+    for (let [key, value] of response.headers) {
+        panelBodyHTML+= `<b>${key}:</b> ${value}<br>`;
+    }
+
+    let panelHTML = `
+        <div class="card card-info h-100">
+            <div class="card-header">Server headers</div>
+            <div class="card-body">${panelBodyHTML}</div>
+        </div>`;
+
+    return panelHTML;
+}
+
+function requestHeadersHTML() {
+
+    let panelBodyHTML = `
+        <b>method:</b> GET<br>
+        <b>user-agent:</b> ${navigator.userAgent}
+    `;
+
+    let panelHTML = `
+        <div class="card card-info h-100">
+            <div class="card-header">Client headers</div>
+            <div class="card-body">${panelBodyHTML}</div>
+        </div>`;
+
+    return panelHTML;
+}
+
 /* Catch window zoom */
 document.addEventListener('DOMContentLoaded', watchScale);
 window.addEventListener("resize", watchScale);
@@ -26,29 +96,6 @@ function watchScale() {
     }
 
     if (modal && scale < 2.1 && scale > 0.6) modal.remove();
-}
-
-async function getData(url) {
-    let response = await fetch(url);
-
-    if (response.ok) {
-        return await response.json();
-    }
-
-    throw Error('Return with status ' + response.status);
-}
-
-function showData(url) {
-    getData(url)
-        .then(result => {
-            let listUsers = result.reduce((acc, el) => {
-                return acc + `ID: ${el.id}, Name: ${el.name}\n`;
-            }, '');
-            alert(listUsers);
-        })
-        .catch(e => {
-            alert("Error: " + e.message)
-        })
 }
 
 function addModalMessage(message, type) {
