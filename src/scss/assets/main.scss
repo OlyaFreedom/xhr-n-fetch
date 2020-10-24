@@ -41,3 +41,131 @@ body {
   @include button-variant($success, $success);
   color: darken($success, 60%);
 }
+
+
+/*
+  Modal
+*/
+.xf-modal {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: visibility .2s;
+
+  &_scale-small {
+    background-color: rgba(220,53,69,.65);
+  }
+
+  &_scale-large {
+    background-color: rgba(228,149,27,.5);
+  }
+
+  &.visible {
+    visibility: visible;
+  }
+}
+
+.xf-modal__body {
+  border-radius: 10px;
+  background: #fff;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: .2s all .3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px;
+  min-width: 300px;
+  width: 60%;
+
+  &_scale-small {
+    background: #cd5b5b;
+  }
+}
+
+.xf-modal.visible .xf-modal__body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.xf-modal__image {
+  img {
+    max-width: 100%;
+  }
+}
+
+.xf-modal__message {
+  text-align: center;
+}
+
+.xf-modal__blood-title {
+  font-weight: 900;
+  font-size: 10vw;
+  line-height: 1;
+  margin: 0;
+  filter: url(#goo);
+  position: relative;
+  padding-bottom: 150px;
+  letter-spacing: -.12em;
+  color: #b01b1b;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.xf-modal__blood-drop {
+  width: .1em;
+  height: .1em;
+  border-radius: 0 100% 100% 100%;
+  background-color: currentColor;
+  position: absolute;
+  top: 10vh;
+  -webkit-animation: drop 3s infinite both;
+  animation: drop 3s infinite both;
+
+  &:nth-child(1) {
+    left: 14%;
+  }
+
+  &:nth-child(2) {
+    left: 31%;
+    animation-delay: -.4s;
+  }
+
+  &:nth-child(3) {
+    left: 50%;
+    animation-delay: -1.5s;
+  }
+
+  &:nth-child(4) {
+    left: 81%;
+    animation-delay: -.8s;
+  }
+
+  &:nth-child(5) {
+    left: 92%;
+    animation-delay: -1.3s;
+  }
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0) scaleX(.85) rotate(45deg);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: translateY(120%) scaleX(.85) rotate(45deg);
+    animation-timing-function: ease-in;
+  }
+  80%, 100% {
+    transform: translateY(60vh) scaleX(.85) rotate(45deg);
+  }
+}
+
