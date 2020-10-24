@@ -1,0 +1,43 @@
+@import "../../../node_modules/bootstrap/scss/mixins/buttons";
+@import "variables";
+
+/*
+  General
+*/
+
+body {
+  background-color: #FDFFB6;
+}
+
+
+/*
+  Site header
+*/
+
+.site-header {
+  background-color: #caffbf;
+  box-shadow: 0 0 8px #7cb370;
+}
+
+.site-header a {
+  color: #3a772e;
+  transition: ease-in-out color .15s;
+}
+
+.site-header a:hover {
+  color: rgba(0,0,0,.7);
+  text-decoration: none;
+}
+
+/*
+  Buttons
+*/
+.btn-danger {
+  @include button-variant($danger, $danger);
+  color: darken($danger, 60%);
+}
+
+.btn-success {
+  @include button-variant($success, $success);
+  color: darken($success, 60%);
+}
