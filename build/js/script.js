@@ -39,7 +39,7 @@ async function showData(url) {
         let container = document.querySelector('main .container');
         container.insertAdjacentHTML('beforeend', html);
 
-        alert(listUsers);
+        setTimeout(() => alert(listUsers), 0);
     }
     catch(e) {
         alert("Error: " + e.message)
