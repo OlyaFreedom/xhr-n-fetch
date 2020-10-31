@@ -87,18 +87,18 @@ function watchScale() {
     let modal = document.querySelector('.xf-modal');
 
     if (scale >= 2.1 && !modal) {
-        addModalMessage('See a doctor, pall', 'large');
+        addModalMessage({message: 'See a doctor, pall', type: 'large'});
         return;
     }
     if (scale <= 0.6 && !modal) {
-        addModalMessage('WTF?!', 'small');
+        addModalMessage({message: 'WTF?!', type: 'small'});
         return;
     }
 
     if (modal && scale < 2.1 && scale > 0.6) modal.remove();
 }
 
-function addModalMessage(message, type) {
+function addModalMessage({message, type}) {
     let setting = {
         large: {
             image: 'img/doctor.png',
