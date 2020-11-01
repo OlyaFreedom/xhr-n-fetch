@@ -90,12 +90,12 @@ function watchScale() {
         addModalMessage({message: 'See a doctor, pall', type: 'large'});
         return;
     }
-    if (scale <= 0.6 && !modal) {
+    if (scale <= 0.75 && !modal) {
         addModalMessage({message: 'WTF?!', type: 'small'});
         return;
     }
 
-    if (modal && scale < 2 && scale > 0.6) modal.remove();
+    if (modal && scale < 2 && scale > 0.75) modal.remove();
 }
 
 function addModalMessage({message, type}) {
