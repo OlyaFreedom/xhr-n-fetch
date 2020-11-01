@@ -86,13 +86,8 @@ function watchScale() {
     let scale = window.devicePixelRatio / initialRatio;
     let modal = document.querySelector('.xf-modal');
 
-<<<<<<< HEAD
-    if (scale >= 2.1 && !modal) {
-        addModalMessage({message: 'See a doctor, pall', type: 'large'});
-=======
     if (scale >= 2 && !modal) {
-        addModalMessage('See a doctor, pall', 'large');
->>>>>>> origin/main
+        addModalMessage({message: 'See a doctor, pall', type: 'large'});
         return;
     }
     if (scale <= 0.6 && !modal) {
